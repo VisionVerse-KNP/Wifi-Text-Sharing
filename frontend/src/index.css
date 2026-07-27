@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-gradient-to-br from-brand-50 via-white to-brand-100
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950
+      text-slate-800 dark:text-slate-100
+      min-h-screen antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl border border-white/40
+      dark:border-slate-700/50 shadow-glass rounded-3xl;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-brand-300/60 dark:bg-slate-600/60 rounded-full;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

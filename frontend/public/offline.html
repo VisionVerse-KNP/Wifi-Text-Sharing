@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You're offline — WiFi Text Share</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #eef1ff, #ffffff);
+        color: #1e293b;
+        text-align: center;
+        padding: 24px;
+      }
+      .card {
+        max-width: 360px;
+      }
+      .emoji { font-size: 48px; margin-bottom: 12px; }
+      h1 { font-size: 20px; margin: 0 0 8px; }
+      p { color: #64748b; font-size: 14px; margin: 0 0 20px; }
+      button {
+        background: linear-gradient(90deg, #6d8bff, #4463f7);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="emoji">📡</div>
+      <h1>You're offline</h1>
+      <p>WiFi Text Share needs a network connection to sync in real time. Reconnect and try again.</p>
+      <button onclick="location.reload()">Retry</button>
+    </div>
+  </body>
+</html>

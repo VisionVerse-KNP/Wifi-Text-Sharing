@@ -1,0 +1,19 @@
+{
+  "name": "wifi-text-share",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Real-time LAN text and message sharing — no account needed.",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently -n backend,frontend -c blue,magenta \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "start:backend": "npm run start --prefix backend",
+    "preview:frontend": "npm run preview --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "all": "^0.0.0"
+  }
+}

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#4463f7" />
+
+    <!-- Primary SEO -->
+    <title>WiFi Text Share — Instant Real-Time Text Sharing Over WiFi & Private Rooms</title>
+    <meta
+      name="description"
+      content="Share text instantly with everyone on your WiFi — no login, no accounts. Or create a password-protected private room and share text and messages in real time from anywhere."
+    />
+    <meta
+      name="keywords"
+      content="wifi text share, share text over wifi, local network text sharing, real-time text share, private room text sharing, no login text sharing, LAN chat, instant messaging without account"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="WiFi Text Share" />
+    <link rel="canonical" href="https://wifitextshare.example.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WiFi Text Share" />
+    <meta property="og:title" content="WiFi Text Share — Instant Real-Time Text Sharing" />
+    <meta
+      property="og:description"
+      content="Share text instantly with everyone on your WiFi, or create a password-protected private room. No login required."
+    />
+    <meta property="og:url" content="https://wifitextshare.example.com/" />
+    <meta property="og:image" content="https://wifitextshare.example.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WiFi Text Share — Instant Real-Time Text Sharing" />
+    <meta
+      name="twitter:description"
+      content="Share text instantly with everyone on your WiFi, or create a password-protected private room. No login required."
+    />
+    <meta name="twitter:image" content="https://wifitextshare.example.com/og-image.png" />
+
+    <!-- Favicons / PWA icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Structured data: WebApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "WiFi Text Share",
+        "url": "https://wifitextshare.example.com/",
+        "applicationCategory": "CommunicationApplication",
+        "operatingSystem": "Any (Web-based)",
+        "description": "Share text instantly with everyone on your WiFi network, or create a password-protected private room to share text and messages in real time.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "WiFi Text Share",
+        "url": "https://wifitextshare.example.com/",
+        "logo": "https://wifitextshare.example.com/icons/icon-512.svg"
+      }
+    </script>
+
+    <!-- Structured data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do I need to create an account to use WiFi Text Share?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Local WiFi sharing and private rooms both work without any sign-up — just enter a display name."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does local WiFi sharing work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every device that opens the app on the same WiFi network is automatically placed in the same shared space, so messages sync instantly without any setup."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I share text privately with people not on my WiFi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Create a password-protected private room and share the Room ID, password, or invite link with anyone, anywhere."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Structured data: BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wifitextshare.example.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Local WiFi Network", "item": "https://wifitextshare.example.com/wifi" },
+          { "@type": "ListItem", "position": 3, "name": "Private Room", "item": "https://wifitextshare.example.com/room" }
+        ]
+      }
+    </script>
+
+    <!--
+      Google AdSense loader — uncomment and set your publisher ID to go live.
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
