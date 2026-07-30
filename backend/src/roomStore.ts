@@ -1,5 +1,6 @@
 import { randomInt } from 'crypto';
-import { ChatMessage, RoomMeta, RoomState, RoomUser, SharedText } from './types';
+import { ChatMessage, FileAttachment, RoomMeta, RoomState, RoomUser, SharedText } from './types';
+import * as fileStorage from './fileStorage';
 
 /**
  * In-memory store, one entry per LAN "room" (subnet).
@@ -24,6 +25,7 @@ interface RoomRecord {
   roomId: string;
   users: Map<string, RoomUser>;
   messages: ChatMessage[];
+  files: FileAttachment[];
   sharedText: SharedText;
   meta: RoomMeta;
   password: string | null;
@@ -45,6 +47,7 @@ function createEmptyRoom(roomId: string, meta: RoomMeta = defaultLanMeta()): Roo
     roomId,
     users: new Map(),
     messages: [],
+    files: [],
     sharedText: {
       content: '',
       updatedByName: null,
@@ -117,6 +120,7 @@ export function checkPrivateRoomPassword(roomId: string, password: string): Join
 }
 
 export function deleteRoom(roomId: string): void {
+  fileStorage.deleteRoomFiles(roomId);
   rooms.delete(roomId);
 }
 
@@ -144,6 +148,7 @@ export function cleanupInactivePrivateRooms(): number {
       return;
     }
     if (now - room.emptySince > INACTIVE_PRIVATE_ROOM_TTL_MS) {
+      fileStorage.deleteRoomFiles(roomId);
       rooms.delete(roomId);
       removed += 1;
     }
@@ -174,6 +179,7 @@ export function getRoomState(roomId: string): RoomState {
     roomId,
     users: Array.from(room.users.values()),
     messages: room.messages,
+    files: room.files,
     sharedText: room.sharedText,
     meta: room.meta,
   };
@@ -206,6 +212,34 @@ export function deleteMessage(roomId: string, id: string, userId: string): boole
   return true;
 }
 
+export function findMessage(roomId: string, id: string): ChatMessage | null {
+  return rooms.get(roomId)?.messages.find((m) => m.id === id) ?? null;
+}
+
+/** Toggles a single user's reaction to a message. Removes the emoji key entirely once no one has it. */
+export function toggleReaction(roomId: string, id: string, userId: string, emoji: string): ChatMessage | null {
+  const room = rooms.get(roomId);
+  const msg = room?.messages.find((m) => m.id === id);
+  if (!msg) return null;
+  const reactors = msg.reactions[emoji] ?? [];
+  const already = reactors.includes(userId);
+  const nextReactors = already ? reactors.filter((u) => u !== userId) : [...reactors, userId];
+  if (nextReactors.length === 0) {
+    delete msg.reactions[emoji];
+  } else {
+    msg.reactions[emoji] = nextReactors;
+  }
+  return msg;
+}
+
+export function togglePin(roomId: string, id: string): ChatMessage | null {
+  const room = rooms.get(roomId);
+  const msg = room?.messages.find((m) => m.id === id);
+  if (!msg) return null;
+  msg.pinned = !msg.pinned;
+  return msg;
+}
+
 export function setSharedText(roomId: string, content: string, updatedByName: string): SharedText {
   const room = getOrCreateRoom(roomId);
   room.sharedText = {
@@ -216,10 +250,32 @@ export function setSharedText(roomId: string, content: string, updatedByName: st
   return room.sharedText;
 }
 
+export function addFileRecord(roomId: string, file: FileAttachment): void {
+  const room = getOrCreateRoom(roomId);
+  room.files.push(file);
+}
+
+/** Removes a file record (only if the requesting user was the uploader) and deletes it from disk. */
+export function removeFileRecord(roomId: string, id: string, userId: string): FileAttachment | null {
+  const room = rooms.get(roomId);
+  if (!room) return null;
+  const idx = room.files.findIndex((f) => f.id === id);
+  if (idx === -1 || room.files[idx].uploaderId !== userId) return null;
+  const [removed] = room.files.splice(idx, 1);
+  fileStorage.deleteStoredFile(roomId, removed.storedName);
+  return removed;
+}
+
+export function getRoomFiles(roomId: string): FileAttachment[] {
+  return rooms.get(roomId)?.files ?? [];
+}
+
 export function clearBoard(roomId: string): void {
   const room = getOrCreateRoom(roomId);
   room.messages = [];
+  room.files = [];
   room.sharedText = { content: '', updatedByName: null, updatedAt: Date.now() };
+  fileStorage.deleteRoomFiles(roomId);
 }
 
 export function roomUserCount(roomId: string): number {

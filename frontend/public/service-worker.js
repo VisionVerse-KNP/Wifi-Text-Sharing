@@ -2,8 +2,18 @@
 // Caches static shell assets so the app can install and open offline;
 // real-time features still require a live connection to the backend.
 
-const CACHE_NAME = 'wifi-text-share-v1';
-const APP_SHELL = ['/', '/manifest.json', '/favicon.svg', '/offline.html'];
+const CACHE_NAME = 'wifi-text-share-v2';
+const APP_SHELL = [
+  '/',
+  '/manifest.json',
+  '/favicon.svg',
+  '/favicon-32.png',
+  '/favicon-16.png',
+  '/apple-touch-icon.png',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/offline.html',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

@@ -10,32 +10,69 @@ import SharedTextArea from '../components/SharedTextArea';
 import MessageBoard from '../components/MessageBoard';
 import ConfirmModal from '../components/ConfirmModal';
 import FabClearBoard from '../components/FabClearBoard';
+import NotificationSettingsButton from '../components/NotificationSettingsButton';
+import NotificationPermissionBanner from '../components/NotificationPermissionBanner';
 import AdSlot from '../components/ads/AdSlot';
 import { useDisplayName } from '../hooks/useDisplayName';
 import { useTheme } from '../hooks/useTheme';
 import { useRoom } from '../hooks/useRoom';
+import { useFileUploads } from '../hooks/useFileUploads';
+import { useSEO } from '../hooks/useSEO';
+import { SITE_URL } from '../lib/seoConfig';
 
 export default function LanRoomPage() {
   const { displayName, setDisplayName } = useDisplayName();
   const { theme, toggleTheme } = useTheme();
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
+  useSEO({
+    title: 'Join Local WiFi Text Share — Live Chat With Everyone On Your Network',
+    description:
+      'Join the shared text board for everyone currently on your WiFi network. No login, no room code — real-time messages and shared text sync instantly.',
+    keywords: 'local wifi chat, lan text sharing, join wifi room, wifi network messaging',
+    path: '/wifi',
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Local WiFi Network', item: `${SITE_URL}/wifi` },
+        ],
+      },
+    ],
+  });
+
   const {
     status,
     users,
     messages,
+    files,
     sharedText,
     typingUsers,
     toasts,
     selfId,
+    roomId,
     updateSharedText,
     sendMessage,
     editMessage,
     deleteMessage,
+    reactToMessage,
+    togglePinMessage,
+    deleteFile,
     startTyping,
     stopTyping,
     clearBoard,
+    pushToast,
   } = useRoom(displayName);
+
+  const { uploads, uploadFiles, cancelUpload, dismissUpload } = useFileUploads({
+    roomId,
+    selfId,
+    displayName,
+    onError: (message) => pushToast(message, 'error'),
+    onSuccess: (message) => pushToast(message, 'info'),
+  });
 
   if (!displayName) {
     return <NameGate onSubmit={setDisplayName} />;
@@ -71,6 +108,7 @@ export default function LanRoomPage() {
             <ConnectionBadge status={status} />
             <OnlineUsers users={users} selfId={selfId} />
             <QRPanel />
+            <NotificationSettingsButton />
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
           </div>
         </div>
@@ -90,12 +128,23 @@ export default function LanRoomPage() {
 
         <MessageBoard
           messages={messages}
+          files={files}
+          roomId={roomId ?? ''}
           users={users}
           selfId={selfId}
           typingNames={typingNames}
+          uploads={uploads}
+          pushToast={pushToast}
           onSend={sendMessage}
           onEdit={editMessage}
           onDelete={deleteMessage}
+          onReact={reactToMessage}
+          onPin={togglePinMessage}
+          onUploadFiles={uploadFiles}
+          onCancelUpload={cancelUpload}
+          onDismissUpload={dismissUpload}
+          onDeleteFile={deleteFile}
+          onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
           onTypingStart={startTyping}
           onTypingStop={stopTyping}
         />
@@ -128,6 +177,8 @@ export default function LanRoomPage() {
         }}
         onCancel={() => setConfirmClearOpen(false)}
       />
+
+      <NotificationPermissionBanner />
     </div>
   );
 }

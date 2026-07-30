@@ -15,6 +15,7 @@ type IOSocket = Socket<ClientToServerEvents, ServerToClientEvents, InterServerEv
 
 const MAX_NAME_LENGTH = 30;
 const MAX_MESSAGE_LENGTH = 2000;
+const MAX_EMOJI_LENGTH = 8;
 const MAX_TEXT_LENGTH = 20000;
 const MAX_ROOM_NAME_LENGTH = 60;
 const MAX_PASSWORD_LENGTH = 64;
@@ -150,7 +151,7 @@ export function registerSocketHandlers(io: IOServer): void {
       socket.to(socket.data.roomId).emit('text:updated', updated);
     });
 
-    socket.on('message:send', ({ text }) => {
+    socket.on('message:send', ({ text, replyToId }) => {
       if (!socket.data.roomId) return;
       if (!allowMessage(socket.id)) {
         socket.emit('error:message', { message: 'You are sending messages too quickly. Please slow down.' });
@@ -159,6 +160,8 @@ export function registerSocketHandlers(io: IOServer): void {
       const clean = sanitize(text || '', MAX_MESSAGE_LENGTH);
       if (!clean) return;
 
+      const repliedTo = replyToId ? store.findMessage(socket.data.roomId, replyToId) : null;
+
       const message: ChatMessage = {
         id: randomUUID(),
         userId: socket.id,
@@ -166,6 +169,11 @@ export function registerSocketHandlers(io: IOServer): void {
         text: clean,
         timestamp: Date.now(),
         edited: false,
+        replyTo: repliedTo
+          ? { id: repliedTo.id, userName: repliedTo.userName, text: repliedTo.text.slice(0, 200) }
+          : null,
+        pinned: false,
+        reactions: {},
       };
       store.addMessage(socket.data.roomId, message);
       io.to(socket.data.roomId).emit('message:new', message);
@@ -183,6 +191,26 @@ export function registerSocketHandlers(io: IOServer): void {
       if (!socket.data.roomId) return;
       const removed = store.deleteMessage(socket.data.roomId, id, socket.id);
       if (removed) io.to(socket.data.roomId).emit('message:removed', { id });
+    });
+
+    socket.on('message:react', ({ id, emoji }) => {
+      if (!socket.data.roomId) return;
+      const clean = typeof emoji === 'string' ? emoji.trim().slice(0, MAX_EMOJI_LENGTH) : '';
+      if (!clean) return;
+      const updated = store.toggleReaction(socket.data.roomId, id, socket.id, clean);
+      if (updated) io.to(socket.data.roomId).emit('message:updated', updated);
+    });
+
+    socket.on('message:pin', ({ id }) => {
+      if (!socket.data.roomId) return;
+      const updated = store.togglePin(socket.data.roomId, id);
+      if (updated) io.to(socket.data.roomId).emit('message:updated', updated);
+    });
+
+    socket.on('file:delete', ({ id }) => {
+      if (!socket.data.roomId) return;
+      const removed = store.removeFileRecord(socket.data.roomId, id, socket.id);
+      if (removed) io.to(socket.data.roomId).emit('file:removed', { id });
     });
 
     socket.on('typing:start', () => {

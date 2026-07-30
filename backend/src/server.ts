@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { Server } from 'socket.io';
 import { registerSocketHandlers } from './socketHandlers';
+import { createFileRouter } from './fileRoutes';
+import { createLinkPreviewRouter } from './linkPreviewRoutes';
 import {
   ClientToServerEvents,
   ServerToClientEvents,
@@ -89,6 +91,8 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEve
 );
 
 registerSocketHandlers(io);
+app.use('/api', createFileRouter(io));
+app.use('/api', createLinkPreviewRouter());
 
 httpServer.listen(PORT, '0.0.0.0', () => {
   const interfaces = os.networkInterfaces();

@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useSEO } from '../hooks/useSEO';
 
 export default function NotFoundPage() {
+  useSEO({
+    title: 'Page Not Found',
+    description: "The page you're looking for doesn't exist. Head back to WiFi Text Share.",
+    path: '/404',
+    robots: 'noindex, nofollow',
+  });
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 text-center">
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">

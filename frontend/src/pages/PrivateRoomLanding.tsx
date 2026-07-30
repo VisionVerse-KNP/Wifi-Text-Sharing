@@ -3,12 +3,32 @@ import { Link } from 'react-router-dom';
 import { JoinConfig } from '../hooks/useSocketRoom';
 import { useDisplayName } from '../hooks/useDisplayName';
 import PrivateRoomSession from '../components/PrivateRoomSession';
+import { useSEO } from '../hooks/useSEO';
+import { SITE_URL } from '../lib/seoConfig';
 
 type Tab = 'create' | 'join';
 
 export default function PrivateRoomLanding() {
   const { displayName: storedName, setDisplayName } = useDisplayName();
   const [tab, setTab] = useState<Tab>('create');
+
+  useSEO({
+    title: 'Create or Join a Private Room — Password-Protected Text Sharing',
+    description:
+      'Create a password-protected private room or join an existing one with a Room ID. Works over the internet, not just local WiFi — no account required.',
+    keywords: 'private room text sharing, password protected chat, room id join, secure text sharing',
+    path: '/room',
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Private Room', item: `${SITE_URL}/room` },
+        ],
+      },
+    ],
+  });
 
   const [name, setName] = useState(storedName ?? '');
   const [roomName, setRoomName] = useState('');

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSocketRoom, JoinConfig } from '../hooks/useSocketRoom';
+import { useFileUploads } from '../hooks/useFileUploads';
 import { useTheme } from '../hooks/useTheme';
 import ConnectionBadge from './ConnectionBadge';
 import ThemeToggle from './ThemeToggle';
@@ -9,6 +10,8 @@ import QRPanel from './QRPanel';
 import SharedTextArea from './SharedTextArea';
 import MessageBoard from './MessageBoard';
 import RoomInfoPanel from './RoomInfoPanel';
+import NotificationSettingsButton from './NotificationSettingsButton';
+import NotificationPermissionBanner from './NotificationPermissionBanner';
 import AdSlot from './ads/AdSlot';
 
 interface Props {
@@ -26,6 +29,7 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
     status,
     users,
     messages,
+    files,
     sharedText,
     typingUsers,
     toasts,
@@ -40,11 +44,23 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
     sendMessage,
     editMessage,
     deleteMessage,
+    reactToMessage,
+    togglePinMessage,
+    deleteFile,
     startTyping,
     stopTyping,
     deleteRoom,
     leaveRoom,
+    pushToast,
   } = useSocketRoom(displayName, joinConfig);
+
+  const { uploads, uploadFiles, cancelUpload, dismissUpload } = useFileUploads({
+    roomId,
+    selfId,
+    displayName,
+    onError: (message) => pushToast(message, 'error'),
+    onSuccess: (message) => pushToast(message, 'info'),
+  });
 
   if (joinError) {
     return (
@@ -121,6 +137,7 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
           <div className="flex items-center gap-2 flex-wrap justify-end">
             <ConnectionBadge status={status} />
             <QRPanel />
+            <NotificationSettingsButton />
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
           </div>
         </div>
@@ -136,12 +153,23 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
 
         <MessageBoard
           messages={messages}
+          files={files}
+          roomId={roomId ?? ''}
           users={users}
           selfId={selfId}
           typingNames={typingNames}
+          uploads={uploads}
+          pushToast={pushToast}
           onSend={sendMessage}
           onEdit={editMessage}
           onDelete={deleteMessage}
+          onReact={reactToMessage}
+          onPin={togglePinMessage}
+          onUploadFiles={uploadFiles}
+          onCancelUpload={cancelUpload}
+          onDismissUpload={dismissUpload}
+          onDeleteFile={deleteFile}
+          onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
           onTypingStart={startTyping}
           onTypingStop={stopTyping}
         />
@@ -162,6 +190,8 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
           <AdSlot slot="right-sidebar" width={280} height={280} label="Native Ad Placeholder" />
         </div>
       </main>
+
+      <NotificationPermissionBanner />
     </div>
   );
 }

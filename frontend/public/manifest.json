@@ -1,8 +1,11 @@
 {
+  "id": "/",
   "name": "WiFi Text Share",
   "short_name": "TextShare",
   "description": "Share text instantly with everyone on your WiFi, or in a private password-protected room.",
-  "start_url": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -14,13 +17,45 @@
       "src": "/icons/icon-192.svg",
       "sizes": "192x192",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Join Local WiFi",
+      "short_name": "WiFi",
+      "url": "/wifi?source=pwa-shortcut",
+      "description": "Join the local WiFi text sharing board"
+    },
+    {
+      "name": "Private Room",
+      "short_name": "Room",
+      "url": "/room?source=pwa-shortcut",
+      "description": "Create or join a private password-protected room"
     }
   ]
 }

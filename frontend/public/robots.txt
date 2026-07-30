@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /room/
+Allow: /wifi
+Allow: /room
+Disallow: /room/*
 
 Sitemap: https://wifitextshare.example.com/sitemap.xml

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { JoinConfig } from '../hooks/useSocketRoom';
 import { useDisplayName } from '../hooks/useDisplayName';
 import PrivateRoomSession from '../components/PrivateRoomSession';
+import { useSEO } from '../hooks/useSEO';
 
 export default function PrivateRoomInvitePage() {
   const { roomId = '' } = useParams();
@@ -10,6 +11,14 @@ export default function PrivateRoomInvitePage() {
   const [name, setName] = useState(storedName ?? '');
   const [password, setPassword] = useState('');
   const [activeConfig, setActiveConfig] = useState<{ displayName: string; join: JoinConfig } | null>(null);
+
+  useSEO({
+    title: `Join Private Room ${roomId || ''}`.trim(),
+    description: 'Enter the room password to join this private, invite-only text sharing session.',
+    path: `/room/${roomId}`,
+    // Invite links are per-room and password-gated — keep them out of search results.
+    robots: 'noindex, nofollow',
+  });
 
   if (activeConfig) {
     return (
