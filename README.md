@@ -1,4 +1,4 @@
-# 📶 WiFi Text Share 
+# 📶 WiFi Text Share
 
 A modern, responsive web app for sharing text instantly in real time — two ways:
 

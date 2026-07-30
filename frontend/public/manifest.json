@@ -2,7 +2,7 @@
   "id": "/",
   "name": "WiFi Text Share",
   "short_name": "TextShare",
-  "description": "Share text instantly with everyone on your WiFi, or in a private password-protected room.",
+  "description": "Share text and files instantly with everyone on your WiFi, or in a private password-protected room.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "/?source=pwa",

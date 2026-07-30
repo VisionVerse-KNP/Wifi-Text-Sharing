@@ -10,7 +10,7 @@ export default function NotFoundPage() {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 text-center">
+    <main className="min-h-screen flex items-center justify-center px-4 text-center">
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">
         <div className="text-4xl mb-3">🧭</div>
         <h1 className="text-2xl font-bold mb-2">Page not found</h1>
@@ -24,6 +24,6 @@ export default function NotFoundPage() {
           Go home
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

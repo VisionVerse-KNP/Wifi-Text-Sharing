@@ -26,10 +26,15 @@ export default function LanRoomPage() {
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   useSEO({
-    title: 'Join Local WiFi Text Share — Live Chat With Everyone On Your Network',
+    title: 'WiFi Share — Join Local WiFi Text & File Sharing On Your Network',
     description:
-      'Join the shared text board for everyone currently on your WiFi network. No login, no room code — real-time messages and shared text sync instantly.',
-    keywords: 'local wifi chat, lan text sharing, join wifi room, wifi network messaging',
+      'WiFi share made simple: join the shared board for everyone currently on your WiFi network. No login, no room code — real-time text and file sharing that syncs instantly.',
+    keywords:
+      'wifi share, wifi sharing, wi-fi share, wi-fi sharing, share wifi, wifi share app, ' +
+      'wifi text share, wifi file share, wifi file sharing, share files over wifi, share text over wifi, ' +
+      'local wifi chat, local wifi sharing, lan text sharing, lan file sharing, lan sharing app, ' +
+      'join wifi room, wifi network messaging, wifi file transfer, share files on network, ' +
+      'free wifi file sharing, no login file sharing',
     path: '/wifi',
     jsonLd: [
       {
@@ -97,9 +102,9 @@ export default function LanRoomPage() {
           <div className="flex items-center gap-2">
             <Link to="/" className="text-2xl" aria-label="WiFi Text Share home">📶</Link>
             <div>
-              <h1 className="font-bold text-base sm:text-lg leading-tight">WiFi Text Share</h1>
+              <h1 className="font-bold text-base sm:text-lg leading-tight">WiFi Text & File Share</h1>
               <p className="text-[11px] text-slate-400 leading-tight hidden sm:block">
-                Live for everyone on this network
+                Real-time WiFi sharing — text &amp; files, live for everyone on this network
               </p>
             </div>
           </div>

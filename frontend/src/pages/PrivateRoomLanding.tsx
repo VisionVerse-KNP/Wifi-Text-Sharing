@@ -13,10 +13,12 @@ export default function PrivateRoomLanding() {
   const [tab, setTab] = useState<Tab>('create');
 
   useSEO({
-    title: 'Create or Join a Private Room — Password-Protected Text Sharing',
+    title: 'Create or Join a Private Room — Password-Protected Text & File Sharing',
     description:
-      'Create a password-protected private room or join an existing one with a Room ID. Works over the internet, not just local WiFi — no account required.',
-    keywords: 'private room text sharing, password protected chat, room id join, secure text sharing',
+      'Create a password-protected private room or join an existing one with a Room ID. Share text and files over the internet, not just local WiFi — no account required.',
+    keywords:
+      'private room text sharing, private room file sharing, password protected chat, room id join, ' +
+      'secure text sharing, secure file sharing',
     path: '/room',
     jsonLd: [
       {
@@ -75,7 +77,7 @@ export default function PrivateRoomLanding() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10">
+    <main className="min-h-screen flex items-center justify-center px-4 py-10">
       <div className="glass-card w-full max-w-md p-6 sm:p-8 animate-slide-up">
         <Link to="/" className="text-xs text-slate-400 hover:text-brand-500 transition">← Back home</Link>
 
@@ -177,7 +179,7 @@ export default function PrivateRoomLanding() {
           </form>
         )}
       </div>
-    </div>
+    </main>
   );
 }
 

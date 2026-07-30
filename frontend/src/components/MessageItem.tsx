@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ChatMessage, LinkPreview, ToastItem } from '../types';
 import { formatTime, renderLiteMarkdown, initialsFromName } from '../lib/format';
 import { extractFirstUrl, fetchLinkPreview } from '../lib/linkPreview';
+import { copyToClipboard } from '../lib/clipboard';
 import LinkPreviewCard from './LinkPreviewCard';
 
 const REACTION_EMOJIS = ['👍', '❤️', '😂', '😮', '😢', '🎉', '🙏', '🔥'];
@@ -68,22 +69,16 @@ export default function MessageItem({
   };
 
   const copyText = async () => {
-    try {
-      await navigator.clipboard.writeText(message.text);
-      pushToast('Message copied!', 'info');
-    } catch {
-      pushToast("Couldn't copy — try selecting the text manually.", 'error');
-    }
+    const ok = await copyToClipboard(message.text);
+    if (ok) pushToast('Message copied!', 'info');
+    else pushToast("Couldn't copy — try selecting the text manually.", 'error');
   };
 
   const copyLink = async () => {
     const url = `${window.location.origin}${window.location.pathname}#message-${message.id}`;
-    try {
-      await navigator.clipboard.writeText(url);
-      pushToast('Message link copied!', 'info');
-    } catch {
-      pushToast("Couldn't copy the link.", 'error');
-    }
+    const ok = await copyToClipboard(url);
+    if (ok) pushToast('Message link copied!', 'info');
+    else pushToast("Couldn't copy the link.", 'error');
   };
 
   const reactionEntries = Object.entries(message.reactions).filter(([, users]) => users.length > 0);

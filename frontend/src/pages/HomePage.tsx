@@ -13,10 +13,15 @@ const FAQ_ITEMS = [
   {
     question: 'How does local WiFi sharing work?',
     answer:
-      'Every device that opens the app on the same WiFi network is automatically placed in the same shared space, so messages sync instantly without any setup.',
+      'Every device that opens the app on the same WiFi network is automatically placed in the same shared space, so messages and files sync instantly without any setup.',
   },
   {
-    question: 'Can I share text privately with people not on my WiFi?',
+    question: 'Can I share files, not just text?',
+    answer:
+      'Yes. Share images, PDFs, documents, spreadsheets, audio, video, and more — with drag-and-drop upload, previews, and downloads, both over local WiFi and in private rooms.',
+  },
+  {
+    question: 'Can I share text and files privately with people not on my WiFi?',
     answer:
       'Yes. Create a password-protected private room and share the Room ID, password, or invite link with anyone, anywhere.',
   },
@@ -26,11 +31,13 @@ export default function HomePage() {
   const { theme, toggleTheme } = useTheme();
 
   useSEO({
-    title: 'WiFi Text Share — Instant Real-Time Text Sharing Over WiFi & Private Rooms',
+    title: 'WiFi Text & File Share — Instant Real-Time Text and File Sharing Over WiFi',
     description:
-      'Share text instantly with everyone on your WiFi — no login, no accounts. Or create a password-protected private room and share text and messages in real time from anywhere.',
+      'Share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere.',
     keywords:
-      'wifi text share, share text over wifi, local network text sharing, real-time text share, private room text sharing, no login text sharing, LAN chat, instant messaging without account',
+      'wifi text share, wifi file sharing, share files over wifi, file sharing app, send files over wifi, ' +
+      'local network file sharing, local network text sharing, real-time text share, private room file sharing, ' +
+      'no login file sharing, LAN chat, LAN file transfer, instant messaging without account',
     path: '/',
     jsonLd: [
       {
@@ -58,11 +65,11 @@ export default function HomePage() {
       <AdPageShell>
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-10 text-center">
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-brand-500 to-brand-700">
-            WiFi Text Share
+            WiFi Text & File Share
           </h1>
           <p className="text-slate-500 dark:text-slate-400 max-w-xl mb-10 text-sm sm:text-base">
-            Share text instantly and in real time — with everyone on your WiFi, or privately in a
-            password-protected room. No accounts, no sign-up.
+            Share text and files instantly and in real time — with everyone on your WiFi, or
+            privately in a password-protected room. No accounts, no sign-up.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
@@ -73,10 +80,10 @@ export default function HomePage() {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-2xl shadow-lg shadow-brand-500/30 mb-4">
                 📡
               </div>
-              <h2 className="text-xl font-bold mb-2">Join Local WiFi Network</h2>
+              <h2 className="text-xl font-bold mb-2">Share Text & Files Over Local WiFi</h2>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Share instantly with everyone connected to the same WiFi. No login, no room code —
-                just open the page.
+                Send messages, photos, and documents instantly with everyone connected to the same
+                WiFi. No login, no room code — just open the page.
               </p>
               <span className="inline-flex items-center gap-1 mt-4 text-brand-600 dark:text-brand-400 text-sm font-semibold group-hover:gap-2 transition-all">
                 Join now →
@@ -90,10 +97,10 @@ export default function HomePage() {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-purple-700 flex items-center justify-center text-2xl shadow-lg shadow-fuchsia-500/30 mb-4">
                 🔒
               </div>
-              <h2 className="text-xl font-bold mb-2">Create / Join Private Room</h2>
+              <h2 className="text-xl font-bold mb-2">Private Room for Text & File Sharing</h2>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Create a password-protected room or join an existing one with a Room ID — works
-                over the internet, not just local WiFi.
+                Create a password-protected room to share messages and files, or join one with a
+                Room ID — works over the internet, not just local WiFi.
               </p>
               <span className="inline-flex items-center gap-1 mt-4 text-fuchsia-600 dark:text-fuchsia-400 text-sm font-semibold group-hover:gap-2 transition-all">
                 Get started →

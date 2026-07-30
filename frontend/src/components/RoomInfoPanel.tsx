@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { RoomMeta, RoomUser } from '../types';
+import { copyToClipboard } from '../lib/clipboard';
+import OnlineUsers from './OnlineUsers';
 
 interface Props {
   roomId: string;
@@ -12,18 +14,21 @@ interface Props {
 }
 
 function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
+  const [state, setState] = useState<'idle' | 'copied' | 'error'>('idle');
   return (
     <button
       onClick={async () => {
-        await navigator.clipboard.writeText(value);
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1500);
+        const ok = await copyToClipboard(value);
+        setState(ok ? 'copied' : 'error');
+        window.setTimeout(() => setState('idle'), 1500);
       }}
-      className="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400
-        hover:bg-brand-500/20 transition shrink-0"
+      className={`text-xs font-semibold px-2.5 py-1 rounded-full transition shrink-0 ${
+        state === 'error'
+          ? 'bg-red-500/10 text-red-600 dark:text-red-400'
+          : 'bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20'
+      }`}
     >
-      {copied ? '✓ Copied' : label}
+      {state === 'copied' ? '✓ Copied' : state === 'error' ? '✕ Copy failed' : label}
     </button>
   );
 }
@@ -73,7 +78,9 @@ export default function RoomInfoPanel({ roomId, meta, users, selfId, createdPass
 
         <div className="flex items-center justify-between gap-2">
           <dt className="text-slate-400">Members</dt>
-          <dd className="font-medium">{users.length} online</dd>
+          <dd>
+            <OnlineUsers users={users} selfId={selfId} />
+          </dd>
         </div>
       </dl>
 

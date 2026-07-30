@@ -75,6 +75,7 @@ export default function MessageBoard({
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const dragCounter = useRef(0);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const typingTimeout = useRef<number | null>(null);
   const hashJumpedRef = useRef(false);
@@ -109,6 +110,13 @@ export default function MessageBoard({
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [timeline.length]);
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  }, [draft]);
 
   const jumpToMessage = (id: string) => {
     const el = document.getElementById(`message-${id}`);
@@ -373,6 +381,7 @@ export default function MessageBoard({
 
         <div className="flex-1 flex flex-col">
           <textarea
+            ref={textareaRef}
             value={draft}
             onChange={(e) => handleDraftChange(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
             onKeyDown={(e) => {
@@ -384,7 +393,8 @@ export default function MessageBoard({
             placeholder="Type a message… (Enter to send, Shift+Enter for new line)"
             rows={1}
             className="w-full resize-none rounded-2xl px-4 py-2.5 bg-white/70 dark:bg-slate-800/60 border
-              border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm"
+              border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm
+              overflow-y-auto scrollbar-thin max-h-32"
           />
           <span className="text-[11px] text-slate-400 mt-0.5 self-end">
             {draft.length}/{MAX_MESSAGE_LENGTH}

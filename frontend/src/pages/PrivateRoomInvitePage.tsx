@@ -43,7 +43,7 @@ export default function PrivateRoomInvitePage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <main className="min-h-screen flex items-center justify-center px-4">
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">
         <Link to="/" className="text-xs text-slate-400 hover:text-brand-500 transition">← Back home</Link>
 
@@ -97,6 +97,6 @@ export default function PrivateRoomInvitePage() {
           </button>
         </form>
       </div>
-    </div>
+    </main>
   );
 }
