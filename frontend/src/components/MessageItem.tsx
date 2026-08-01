@@ -45,6 +45,7 @@ export default function MessageItem({
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(message.text);
   const [showReactionPicker, setShowReactionPicker] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [preview, setPreview] = useState<LinkPreview | null>(null);
 
   useEffect(() => {
@@ -86,7 +87,9 @@ export default function MessageItem({
   return (
     <div
       id={`message-${message.id}`}
-      className={`flex gap-2.5 animate-slide-up rounded-xl transition-colors ${isOwn ? 'flex-row-reverse' : ''} ${
+      onMouseLeave={() => setMenuOpen(false)}
+      className={`group flex gap-2.5 min-w-0 animate-slide-up rounded-xl transition-colors px-1.5 py-1 -mx-1.5
+        hover:bg-black/[0.02] dark:hover:bg-white/[0.03] ${isOwn ? 'flex-row-reverse' : ''} ${
         highlighted ? 'bg-brand-500/10 ring-2 ring-brand-500/40' : ''
       }`}
     >
@@ -97,12 +100,23 @@ export default function MessageItem({
         {initialsFromName(message.userName)}
       </span>
 
-      <div className={`max-w-[80%] sm:max-w-[70%] flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
+      <div className={`min-w-0 max-w-[80%] sm:max-w-[70%] flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
         <div className="flex items-center gap-2 mb-0.5 text-xs text-slate-400">
           {!isOwn && <span className="font-medium text-slate-500 dark:text-slate-300">{message.userName}</span>}
           <span>{formatTime(message.timestamp)}</span>
           {message.edited && <span className="italic">(edited)</span>}
           {message.pinned && <span title="Pinned">📌</span>}
+          <button
+            onClick={() => setMenuOpen((s) => !s)}
+            aria-label="Message actions"
+            aria-expanded={menuOpen}
+            className={`w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10
+              transition opacity-40 hover:opacity-100 group-hover:opacity-100 ${
+                menuOpen ? 'opacity-100 bg-black/10 dark:bg-white/10' : ''
+              }`}
+          >
+            ⋯
+          </button>
         </div>
 
         {message.replyTo && (
@@ -171,27 +185,69 @@ export default function MessageItem({
         )}
 
         {!editing && (
-          <div className="relative flex flex-wrap gap-2.5 mt-1 text-[11px] text-slate-400">
-            <button onClick={() => onReply(message)} className="hover:text-brand-500 transition" title="Reply">
+          <div
+            className={`relative flex-wrap gap-2.5 mt-1 text-[11px] text-slate-400 ${
+              menuOpen ? 'flex' : 'hidden group-hover:flex'
+            }`}
+          >
+            <button
+              onClick={() => {
+                onReply(message);
+                setMenuOpen(false);
+              }}
+              className="hover:text-brand-500 transition"
+              title="Reply"
+            >
               ↩ Reply
             </button>
-            <button onClick={copyText} className="hover:text-brand-500 transition" title="Copy message text">
+            <button
+              onClick={() => {
+                copyText();
+                setMenuOpen(false);
+              }}
+              className="hover:text-brand-500 transition"
+              title="Copy message text"
+            >
               ⧉ Copy
             </button>
-            <button onClick={() => onForward(message.text)} className="hover:text-brand-500 transition" title="Forward">
+            <button
+              onClick={() => {
+                onForward(message.text);
+                setMenuOpen(false);
+              }}
+              className="hover:text-brand-500 transition"
+              title="Forward"
+            >
               ➦ Forward
             </button>
-            <button onClick={() => onPin(message.id)} className="hover:text-brand-500 transition" title={message.pinned ? 'Unpin' : 'Pin'}>
+            <button
+              onClick={() => {
+                onPin(message.id);
+                setMenuOpen(false);
+              }}
+              className="hover:text-brand-500 transition"
+              title={message.pinned ? 'Unpin' : 'Pin'}
+            >
               📌 {message.pinned ? 'Unpin' : 'Pin'}
             </button>
             <button
-              onClick={() => onBookmarkToggle(message.id)}
+              onClick={() => {
+                onBookmarkToggle(message.id);
+                setMenuOpen(false);
+              }}
               className="hover:text-brand-500 transition"
               title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
             >
               {isBookmarked ? '🔖 Saved' : '🔖 Save'}
             </button>
-            <button onClick={copyLink} className="hover:text-brand-500 transition" title="Copy link to message">
+            <button
+              onClick={() => {
+                copyLink();
+                setMenuOpen(false);
+              }}
+              className="hover:text-brand-500 transition"
+              title="Copy link to message"
+            >
               🔗 Link
             </button>
             <button
@@ -203,10 +259,22 @@ export default function MessageItem({
             </button>
             {isOwn && (
               <>
-                <button onClick={() => setEditing(true)} className="hover:text-brand-500 transition">
+                <button
+                  onClick={() => {
+                    setEditing(true);
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-brand-500 transition"
+                >
                   ✎ Edit
                 </button>
-                <button onClick={() => onDelete(message.id)} className="hover:text-red-500 transition">
+                <button
+                  onClick={() => {
+                    onDelete(message.id);
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-red-500 transition"
+                >
                   🗑 Delete
                 </button>
               </>

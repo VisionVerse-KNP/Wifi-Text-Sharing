@@ -143,38 +143,12 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-[1fr_1fr_280px] gap-6">
-        <SharedTextArea
-          sharedText={sharedText}
-          onChange={updateSharedText}
-          onTypingStart={startTyping}
-          onTypingStop={stopTyping}
-        />
+      <main className="max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 xl:grid-cols-[160px_minmax(0,1fr)_160px] gap-6">
+        <aside className="hidden xl:flex justify-center">
+          <AdSlot slot="left-sidebar" width={160} height={600} className="sticky top-24" />
+        </aside>
 
-        <MessageBoard
-          messages={messages}
-          files={files}
-          roomId={roomId ?? ''}
-          users={users}
-          selfId={selfId}
-          typingNames={typingNames}
-          uploads={uploads}
-          pushToast={pushToast}
-          onSend={sendMessage}
-          onEdit={editMessage}
-          onDelete={deleteMessage}
-          onReact={reactToMessage}
-          onPin={togglePinMessage}
-          onUploadFiles={uploadFiles}
-          onCancelUpload={cancelUpload}
-          onDismissUpload={dismissUpload}
-          onDeleteFile={deleteFile}
-          onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
-          onTypingStart={startTyping}
-          onTypingStop={stopTyping}
-        />
-
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6 min-w-0">
           <RoomInfoPanel
             roomId={roomId}
             meta={roomMeta}
@@ -187,8 +161,41 @@ export default function PrivateRoomSession({ displayName, joinConfig, onExit }: 
               onExit();
             }}
           />
-          <AdSlot slot="right-sidebar" width={280} height={280} label="Native Ad Placeholder" />
+
+          <SharedTextArea
+            sharedText={sharedText}
+            onChange={updateSharedText}
+            onTypingStart={startTyping}
+            onTypingStop={stopTyping}
+          />
+
+          <MessageBoard
+            messages={messages}
+            files={files}
+            roomId={roomId ?? ''}
+            users={users}
+            selfId={selfId}
+            typingNames={typingNames}
+            uploads={uploads}
+            pushToast={pushToast}
+            onSend={sendMessage}
+            onEdit={editMessage}
+            onDelete={deleteMessage}
+            onReact={reactToMessage}
+            onPin={togglePinMessage}
+            onUploadFiles={uploadFiles}
+            onCancelUpload={cancelUpload}
+            onDismissUpload={dismissUpload}
+            onDeleteFile={deleteFile}
+            onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
+            onTypingStart={startTyping}
+            onTypingStop={stopTyping}
+          />
         </div>
+
+        <aside className="hidden xl:flex justify-center">
+          <AdSlot slot="right-sidebar" width={160} height={600} className="sticky top-24" />
+        </aside>
       </main>
 
       <NotificationPermissionBanner />

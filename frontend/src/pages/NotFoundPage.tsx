@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useSEO } from '../hooks/useSEO';
+import SEO from '../components/SEO';
 
 export default function NotFoundPage() {
-  useSEO({
-    title: 'Page Not Found',
-    description: "The page you're looking for doesn't exist. Head back to WiFi Text Share.",
-    path: '/404',
-    robots: 'noindex, nofollow',
-  });
-
   return (
     <main className="min-h-screen flex items-center justify-center px-4 text-center">
+      <SEO
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist. Head back to WiFi Text Share."
+        path="/404"
+        robots="noindex, nofollow"
+      />
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">
         <div className="text-4xl mb-3">🧭</div>
         <h1 className="text-2xl font-bold mb-2">Page not found</h1>

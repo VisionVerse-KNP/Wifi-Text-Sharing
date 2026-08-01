@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import ThemeToggle from '../components/ThemeToggle';
 import { useTheme } from '../hooks/useTheme';
 import AdPageShell from '../components/ads/AdPageShell';
-import { useSEO } from '../hooks/useSEO';
+import SEO from '../components/SEO';
 
 const FAQ_ITEMS = [
   {
@@ -27,33 +27,43 @@ const FAQ_ITEMS = [
   },
 ];
 
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
 export default function HomePage() {
   const { theme, toggleTheme } = useTheme();
 
-  useSEO({
-    title: 'WiFi Text & File Share — Instant Real-Time Text and File Sharing Over WiFi',
-    description:
-      'Share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere.',
-    keywords:
-      'wifi text share, wifi file sharing, share files over wifi, file sharing app, send files over wifi, ' +
-      'local network file sharing, local network text sharing, real-time text share, private room file sharing, ' +
-      'no login file sharing, LAN chat, LAN file transfer, instant messaging without account',
-    path: '/',
-    jsonLd: [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: FAQ_ITEMS.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
-        })),
-      },
-    ],
-  });
-
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="WiFi Text & File Share — Instant Real-Time Text and File Sharing Over WiFi"
+        description="Share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere."
+        keywords={[
+          'wifi text share',
+          'wifi file sharing',
+          'share files over wifi',
+          'file sharing app',
+          'send files over wifi',
+          'local network file sharing',
+          'local network text sharing',
+          'real-time text share',
+          'private room file sharing',
+          'no login file sharing',
+          'LAN chat',
+          'LAN file transfer',
+          'instant messaging without account',
+        ]}
+        path="/"
+        jsonLd={[FAQ_JSON_LD]}
+      />
+
       <header className="px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-2xl" aria-hidden>📶</span>

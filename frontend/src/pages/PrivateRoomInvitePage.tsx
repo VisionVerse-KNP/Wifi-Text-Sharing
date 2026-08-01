@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { JoinConfig } from '../hooks/useSocketRoom';
 import { useDisplayName } from '../hooks/useDisplayName';
 import PrivateRoomSession from '../components/PrivateRoomSession';
-import { useSEO } from '../hooks/useSEO';
+import SEO from '../components/SEO';
 
 export default function PrivateRoomInvitePage() {
   const { roomId = '' } = useParams();
@@ -11,14 +11,6 @@ export default function PrivateRoomInvitePage() {
   const [name, setName] = useState(storedName ?? '');
   const [password, setPassword] = useState('');
   const [activeConfig, setActiveConfig] = useState<{ displayName: string; join: JoinConfig } | null>(null);
-
-  useSEO({
-    title: `Join Private Room ${roomId || ''}`.trim(),
-    description: 'Enter the room password to join this private, invite-only text sharing session.',
-    path: `/room/${roomId}`,
-    // Invite links are per-room and password-gated — keep them out of search results.
-    robots: 'noindex, nofollow',
-  });
 
   if (activeConfig) {
     return (
@@ -44,6 +36,12 @@ export default function PrivateRoomInvitePage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
+      <SEO
+        title={`Join Private Room ${roomId || ''}`.trim()}
+        description="Enter the room password to join this private, invite-only text sharing session."
+        path={`/room/${roomId}`}
+        robots="noindex, nofollow"
+      />
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">
         <Link to="/" className="text-xs text-slate-400 hover:text-brand-500 transition">← Back home</Link>
 

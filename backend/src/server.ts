@@ -17,9 +17,7 @@ import {
 
 const PORT = Number(process.env.PORT) || 4000;
 const allowedOrigins = [
-  'https://wifi-text-sharing.netlify.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
+  'https://localwifishare.netlify.app'
 ];
 
 const app = express();

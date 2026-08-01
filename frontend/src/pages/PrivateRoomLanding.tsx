@@ -3,34 +3,32 @@ import { Link } from 'react-router-dom';
 import { JoinConfig } from '../hooks/useSocketRoom';
 import { useDisplayName } from '../hooks/useDisplayName';
 import PrivateRoomSession from '../components/PrivateRoomSession';
-import { useSEO } from '../hooks/useSEO';
+import SEO from '../components/SEO';
 import { SITE_URL } from '../lib/seoConfig';
 
 type Tab = 'create' | 'join';
 
+const ROOM_KEYWORDS = [
+  'private room text sharing',
+  'private room file sharing',
+  'password protected chat',
+  'room id join',
+  'secure text sharing',
+  'secure file sharing',
+];
+
+const ROOM_BREADCRUMB_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Private Room', item: `${SITE_URL}/room` },
+  ],
+};
+
 export default function PrivateRoomLanding() {
   const { displayName: storedName, setDisplayName } = useDisplayName();
   const [tab, setTab] = useState<Tab>('create');
-
-  useSEO({
-    title: 'Create or Join a Private Room — Password-Protected Text & File Sharing',
-    description:
-      'Create a password-protected private room or join an existing one with a Room ID. Share text and files over the internet, not just local WiFi — no account required.',
-    keywords:
-      'private room text sharing, private room file sharing, password protected chat, room id join, ' +
-      'secure text sharing, secure file sharing',
-    path: '/room',
-    jsonLd: [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'Private Room', item: `${SITE_URL}/room` },
-        ],
-      },
-    ],
-  });
 
   const [name, setName] = useState(storedName ?? '');
   const [roomName, setRoomName] = useState('');
@@ -78,6 +76,13 @@ export default function PrivateRoomLanding() {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-4 py-10">
+      <SEO
+        title="Create or Join a Private Room — Password-Protected Text & File Sharing"
+        description="Create a password-protected private room or join an existing one with a Room ID. Share text and files over the internet, not just local WiFi — no account required."
+        keywords={ROOM_KEYWORDS}
+        path="/room"
+        jsonLd={[ROOM_BREADCRUMB_JSON_LD]}
+      />
       <div className="glass-card w-full max-w-md p-6 sm:p-8 animate-slide-up">
         <Link to="/" className="text-xs text-slate-400 hover:text-brand-500 transition">← Back home</Link>
 

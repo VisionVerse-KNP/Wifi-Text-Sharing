@@ -18,7 +18,7 @@ export default function FileCard({ file, isOwn, roomId, color, onDelete, onDownl
   const isImage = file.category === 'image';
 
   return (
-    <div className={`flex gap-2.5 animate-slide-up ${isOwn ? 'flex-row-reverse' : ''}`}>
+    <div className={`flex gap-2.5 min-w-0 animate-slide-up ${isOwn ? 'flex-row-reverse' : ''}`}>
       <span
         className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 mt-0.5 overflow-hidden"
         style={{ backgroundColor: color }}
@@ -30,7 +30,7 @@ export default function FileCard({ file, isOwn, roomId, color, onDelete, onDownl
         )}
       </span>
 
-      <div className={`max-w-[85%] sm:max-w-[75%] flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
+      <div className={`min-w-0 max-w-[85%] sm:max-w-[75%] flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
         <div className="flex items-center gap-2 mb-0.5 text-xs text-slate-400">
           {!isOwn && <span className="font-medium text-slate-500 dark:text-slate-300">{file.uploaderName}</span>}
           <span>{formatTime(file.uploadedAt)}</span>

@@ -2,7 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font: Inter, loaded properly (was referenced in CSS but never actually linked before) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <meta name="theme-color" content="#4463f7" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -10,42 +18,17 @@
     <meta name="apple-mobile-web-app-title" content="TextShare" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Primary SEO -->
-    <title>WiFi Text & File Share — Instant Real-Time Text and File Sharing Over WiFi</title>
-    <meta
-      name="description"
-      content="Share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere."
-    />
-    <meta
-      name="keywords"
-      content="wifi text share, wifi file sharing, share files over wifi, file sharing app, send files over wifi, local network file sharing, local network text sharing, real-time text share, private room file sharing, no login file sharing, LAN chat, LAN file transfer, instant messaging without account"
-    />
+    <!--
+      Route-specific SEO (title, description, keywords, canonical, OG, Twitter)
+      is now owned entirely by the <SEO> component (src/components/SEO.tsx,
+      via react-helmet-async) so it can be unique per page. Nothing route-level
+      is duplicated here — Helmet doesn't know to clean up static tags it
+      didn't create, so keeping both here and in <SEO> would leave duplicate
+      meta tags in the live DOM. This generic title is just a pre-hydration
+      fallback for the brief moment before React mounts.
+    -->
+    <title>WiFi Text & File Share</title>
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="author" content="WiFi Text Share" />
-    <link rel="canonical" href="https://wifitextshare.example.com/" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="WiFi Text Share" />
-    <meta property="og:title" content="WiFi Text & File Share — Instant Real-Time Sharing Over WiFi" />
-    <meta
-      property="og:description"
-      content="Share text and files instantly with everyone on your WiFi, or create a password-protected private room. No login required."
-    />
-    <meta property="og:url" content="https://wifitextshare.example.com/" />
-    <meta property="og:image" content="https://wifitextshare.example.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="WiFi Text & File Share — Instant Real-Time Sharing Over WiFi" />
-    <meta
-      name="twitter:description"
-      content="Share text and files instantly with everyone on your WiFi, or create a password-protected private room. No login required."
-    />
-    <meta name="twitter:image" content="https://wifitextshare.example.com/og-image.png" />
 
     <!-- Favicons / PWA icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -56,7 +39,6 @@
 
     <!-- Performance: warm up connection to the AdSense origin before it's requested -->
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
-
 
     <!-- Structured data: WebApplication -->
     <script type="application/ld+json">
@@ -89,13 +71,23 @@
 
     <!--
       FAQPage and BreadcrumbList structured data are injected dynamically per-route
-      by useSEO() (see src/hooks/useSEO.ts) so they only appear on pages where that
-      content is actually visible/relevant — required by Google's structured data
-      guidelines and better for real SEO value than one static site-wide block.
+      by the <SEO> component (src/components/SEO.tsx, via react-helmet-async) so
+      they only appear on pages where that content is actually visible/relevant —
+      required by Google's structured data guidelines and better for real SEO
+      value than one static site-wide block.
     -->
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="font-family: system-ui, sans-serif; text-align: center; padding: 3rem 1.5rem; max-width: 480px; margin: 0 auto;">
+        <h1 style="font-size: 1.25rem; margin-bottom: 0.5rem;">JavaScript required</h1>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          WiFi Text &amp; File Share needs JavaScript enabled to work — it's a real-time app that syncs
+          messages and files live. Please enable JavaScript in your browser settings and reload the page.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8100874496888896"
      crossorigin="anonymous"></script>

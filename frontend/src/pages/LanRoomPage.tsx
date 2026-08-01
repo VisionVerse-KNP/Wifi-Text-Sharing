@@ -17,36 +17,47 @@ import { useDisplayName } from '../hooks/useDisplayName';
 import { useTheme } from '../hooks/useTheme';
 import { useRoom } from '../hooks/useRoom';
 import { useFileUploads } from '../hooks/useFileUploads';
-import { useSEO } from '../hooks/useSEO';
+import SEO from '../components/SEO';
 import { SITE_URL } from '../lib/seoConfig';
+
+const WIFI_KEYWORDS = [
+  'wifi share',
+  'wifi sharing',
+  'wi-fi share',
+  'wi-fi sharing',
+  'share wifi',
+  'wifi share app',
+  'wifi text share',
+  'wifi file share',
+  'wifi file sharing',
+  'share files over wifi',
+  'share text over wifi',
+  'local wifi chat',
+  'local wifi sharing',
+  'lan text sharing',
+  'lan file sharing',
+  'lan sharing app',
+  'join wifi room',
+  'wifi network messaging',
+  'wifi file transfer',
+  'share files on network',
+  'free wifi file sharing',
+  'no login file sharing',
+];
+
+const WIFI_BREADCRUMB_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Local WiFi Network', item: `${SITE_URL}/wifi` },
+  ],
+};
 
 export default function LanRoomPage() {
   const { displayName, setDisplayName } = useDisplayName();
   const { theme, toggleTheme } = useTheme();
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
-
-  useSEO({
-    title: 'WiFi Share — Join Local WiFi Text & File Sharing On Your Network',
-    description:
-      'WiFi share made simple: join the shared board for everyone currently on your WiFi network. No login, no room code — real-time text and file sharing that syncs instantly.',
-    keywords:
-      'wifi share, wifi sharing, wi-fi share, wi-fi sharing, share wifi, wifi share app, ' +
-      'wifi text share, wifi file share, wifi file sharing, share files over wifi, share text over wifi, ' +
-      'local wifi chat, local wifi sharing, lan text sharing, lan file sharing, lan sharing app, ' +
-      'join wifi room, wifi network messaging, wifi file transfer, share files on network, ' +
-      'free wifi file sharing, no login file sharing',
-    path: '/wifi',
-    jsonLd: [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'Local WiFi Network', item: `${SITE_URL}/wifi` },
-        ],
-      },
-    ],
-  });
 
   const {
     status,
@@ -87,6 +98,14 @@ export default function LanRoomPage() {
 
   return (
     <div className="min-h-screen pb-24">
+      <SEO
+        title="WiFi Share — Join Local WiFi Text & File Sharing On Your Network"
+        description="WiFi share made simple: join the shared board for everyone currently on your WiFi network. No login, no room code — real-time text and file sharing that syncs instantly."
+        keywords={WIFI_KEYWORDS}
+        path="/wifi"
+        jsonLd={[WIFI_BREADCRUMB_JSON_LD]}
+      />
+
       <ToastStack toasts={toasts} />
 
       {/* Desktop header banner */}
@@ -119,40 +138,42 @@ export default function LanRoomPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 xl:grid-cols-[160px_1fr_1fr_160px] gap-6">
+      <main className="max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 xl:grid-cols-[160px_minmax(0,1fr)_160px] gap-6">
         <aside className="hidden xl:flex justify-center">
           <AdSlot slot="left-sidebar" width={160} height={600} className="sticky top-24" />
         </aside>
 
-        <SharedTextArea
-          sharedText={sharedText}
-          onChange={updateSharedText}
-          onTypingStart={startTyping}
-          onTypingStop={stopTyping}
-        />
+        <div className="flex flex-col gap-6 min-w-0">
+          <SharedTextArea
+            sharedText={sharedText}
+            onChange={updateSharedText}
+            onTypingStart={startTyping}
+            onTypingStop={stopTyping}
+          />
 
-        <MessageBoard
-          messages={messages}
-          files={files}
-          roomId={roomId ?? ''}
-          users={users}
-          selfId={selfId}
-          typingNames={typingNames}
-          uploads={uploads}
-          pushToast={pushToast}
-          onSend={sendMessage}
-          onEdit={editMessage}
-          onDelete={deleteMessage}
-          onReact={reactToMessage}
-          onPin={togglePinMessage}
-          onUploadFiles={uploadFiles}
-          onCancelUpload={cancelUpload}
-          onDismissUpload={dismissUpload}
-          onDeleteFile={deleteFile}
-          onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
-          onTypingStart={startTyping}
-          onTypingStop={stopTyping}
-        />
+          <MessageBoard
+            messages={messages}
+            files={files}
+            roomId={roomId ?? ''}
+            users={users}
+            selfId={selfId}
+            typingNames={typingNames}
+            uploads={uploads}
+            pushToast={pushToast}
+            onSend={sendMessage}
+            onEdit={editMessage}
+            onDelete={deleteMessage}
+            onReact={reactToMessage}
+            onPin={togglePinMessage}
+            onUploadFiles={uploadFiles}
+            onCancelUpload={cancelUpload}
+            onDismissUpload={dismissUpload}
+            onDeleteFile={deleteFile}
+            onDownloadFile={(file) => pushToast(`Downloading ${file.originalName}…`, 'info')}
+            onTypingStart={startTyping}
+            onTypingStop={stopTyping}
+          />
+        </div>
 
         <aside className="hidden xl:flex justify-center">
           <AdSlot slot="right-sidebar" width={160} height={600} className="sticky top-24" />
