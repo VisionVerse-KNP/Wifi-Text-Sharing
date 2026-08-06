@@ -57,7 +57,7 @@ export default function AdPageShell({ children }: AdPageShellProps) {
           <AdSlot slot="footer-responsive" width={970} height={90} label="Footer Responsive Ad" />
         </div>
         <p className="text-center text-[11px] text-slate-400 mt-4">
-          WiFi Text Share — share text instantly, no login required.
+           Local Text & File Share — share text and files instantly, no login required.
         </p>
       </footer>
 

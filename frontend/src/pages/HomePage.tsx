@@ -43,9 +43,11 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="WiFi Text & File Share — Instant Real-Time Text and File Sharing Over WiFi"
-        description="Share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere."
+        title="Local WiFi Share — Instant WiFi Text & File Share, No Login"
+        description="Local WiFi share made simple: share text and files instantly with everyone on your WiFi — no login, no accounts. Send messages, photos, and documents, or create a password-protected private room to share from anywhere."
         keywords={[
+          'local wifi share',
+          'local wifi text share',
           'wifi text share',
           'wifi file sharing',
           'share files over wifi',
@@ -75,11 +77,12 @@ export default function HomePage() {
       <AdPageShell>
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-10 text-center">
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-brand-500 to-brand-700">
-            WiFi Text & File Share
+            Local WiFi Share — Text & File Share
           </h1>
           <p className="text-slate-500 dark:text-slate-400 max-w-xl mb-10 text-sm sm:text-base">
-            Share text and files instantly and in real time — with everyone on your WiFi, or
-            privately in a password-protected room. No accounts, no sign-up.
+            Share text and files instantly and in real time over your local WiFi — with everyone
+            on the same network, or privately in a password-protected room. No accounts, no
+            sign-up.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">

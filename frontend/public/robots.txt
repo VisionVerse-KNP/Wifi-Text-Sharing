@@ -4,4 +4,4 @@ Allow: /wifi
 Allow: /room
 Disallow: /room/*
 
-Sitemap: https://wifitextshare.example.com/sitemap.xml
+Sitemap: https://localwifishare.netlify.app/sitemap.xml

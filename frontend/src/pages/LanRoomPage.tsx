@@ -21,6 +21,8 @@ import SEO from '../components/SEO';
 import { SITE_URL } from '../lib/seoConfig';
 
 const WIFI_KEYWORDS = [
+  'local wifi share',
+  'local wifi text share',
   'wifi share',
   'wifi sharing',
   'wi-fi share',

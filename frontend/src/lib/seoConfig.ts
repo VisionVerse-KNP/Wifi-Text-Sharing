@@ -11,6 +11,6 @@ export const SITE_NAME = 'WiFi Text Share';
 export const SITE_URL =
   typeof window !== 'undefined' && window.location.hostname !== 'localhost'
     ? window.location.origin
-    : 'https://wifitextshare.example.com';
+    : 'https://localwifishare.netlify.app';
 
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
