@@ -6,7 +6,7 @@ import SEO from '../components/SEO';
 
 const FAQ_ITEMS = [
   {
-    question: 'Do I need to create an account to use WiFi Text Share?',
+    question: 'Do I need to create an account to use Local WiFi Share?',
     answer:
       'No. Local WiFi sharing and private rooms both work without any sign-up — just enter a display name.',
   },
@@ -48,9 +48,14 @@ export default function HomePage() {
         keywords={[
           'local wifi share',
           'local wifi text share',
+          'local file share',
+          'local text share',
+          'wifi share',
           'wifi text share',
+          'wifi file share',
           'wifi file sharing',
           'share files over wifi',
+          'share files locally',
           'file sharing app',
           'send files over wifi',
           'local network file sharing',
@@ -69,7 +74,7 @@ export default function HomePage() {
       <header className="px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-2xl" aria-hidden>📶</span>
-          <span className="font-bold text-lg">WiFi Text Share</span>
+          <span className="font-bold text-lg">Local WiFi Share</span>
         </div>
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>

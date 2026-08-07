@@ -6,7 +6,7 @@ export default function NotFoundPage() {
     <main className="min-h-screen flex items-center justify-center px-4 text-center">
       <SEO
         title="Page Not Found"
-        description="The page you're looking for doesn't exist. Head back to WiFi Text Share."
+        description="The page you're looking for doesn't exist. Head back to Local WiFi Share."
         path="/404"
         robots="noindex, nofollow"
       />

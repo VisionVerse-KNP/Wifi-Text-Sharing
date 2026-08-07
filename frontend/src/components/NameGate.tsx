@@ -25,7 +25,7 @@ export default function NameGate({ onSubmit }: Props) {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-3xl shadow-lg shadow-brand-500/30">
             📶
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">WiFi Text Share</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Local WiFi Share</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">
             Instantly share text with everyone on this WiFi network. No account needed.
           </p>

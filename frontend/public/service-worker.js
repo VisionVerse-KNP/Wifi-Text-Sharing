@@ -1,8 +1,8 @@
-// Minimal app-shell service worker for WiFi Text Share.
+// Minimal app-shell service worker for Local WiFi Share.
 // Caches static shell assets so the app can install and open offline;
 // real-time features still require a live connection to the backend.
 
-const CACHE_NAME = 'wifi-text-share-v2';
+const CACHE_NAME = 'local-wifi-share-v1';
 const APP_SHELL = [
   '/',
   '/manifest.json',

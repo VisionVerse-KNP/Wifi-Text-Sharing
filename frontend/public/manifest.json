@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "WiFi Text Share",
-  "short_name": "TextShare",
+  "name": "Local WiFi Share",
+  "short_name": "WiFiShare",
   "description": "Share text and files instantly with everyone on your WiFi, or in a private password-protected room.",
   "lang": "en",
   "dir": "ltr",

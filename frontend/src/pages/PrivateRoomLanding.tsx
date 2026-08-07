@@ -12,9 +12,15 @@ const ROOM_KEYWORDS = [
   'private room text sharing',
   'private room file sharing',
   'password protected chat',
+  'password protected room',
   'room id join',
   'secure text sharing',
   'secure file sharing',
+  'share text online privately',
+  'create private chat room',
+  'invite link file sharing',
+  'wifi text share room',
+  'share files over the internet',
 ];
 
 const ROOM_BREADCRUMB_JSON_LD = {

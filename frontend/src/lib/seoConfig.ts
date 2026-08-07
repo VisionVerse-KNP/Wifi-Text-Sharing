@@ -6,7 +6,7 @@
  * values. Falling back to window.location.origin keeps things correct on
  * previews/staging without code changes.
  */
-export const SITE_NAME = 'WiFi Text Share';
+export const SITE_NAME = 'Local WiFi Share';
 
 export const SITE_URL =
   typeof window !== 'undefined' && window.location.hostname !== 'localhost'

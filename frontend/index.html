@@ -16,7 +16,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="TextShare" />
+    <meta name="apple-mobile-web-app-title" content="WiFiShare" />
     <meta name="format-detection" content="telephone=no" />
 
     <!--
@@ -28,7 +28,7 @@
       meta tags in the live DOM. This generic title is just a pre-hydration
       fallback for the brief moment before React mounts.
     -->
-    <title>WiFi Text & File Share</title>
+    <title>Local WiFi Share</title>
     <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <!-- Favicons / PWA icons -->
@@ -46,7 +46,7 @@
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "WiFi Text Share",
+        "name": "Local WiFi Share",
         "url": "https://localwifishare.netlify.app/",
         "applicationCategory": "CommunicationApplication",
         "operatingSystem": "Any (Web-based)",
@@ -64,7 +64,7 @@
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "WiFi Text Share",
+        "name": "Local WiFi Share",
         "url": "https://localwifishare.netlify.app/",
         "logo": "https://localwifishare.netlify.app/icons/icon-512.svg"
       }
@@ -81,12 +81,16 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <div style="font-family: system-ui, sans-serif; text-align: center; padding: 3rem 1.5rem; max-width: 480px; margin: 0 auto;">
-        <h1 style="font-size: 1.25rem; margin-bottom: 0.5rem;">JavaScript required</h1>
-        <p style="color: #64748b; font-size: 0.95rem;">
-          WiFi Text &amp; File Share needs JavaScript enabled to work — it's a real-time app that syncs
-          messages and files live. Please enable JavaScript in your browser settings and reload the page.
-        </p>
+      <div style="margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #eef1ff, #ffffff); color:#1e293b; text-align:center; padding:24px;">
+        <div style="max-width:360px;">
+          <div style="font-size:48px; margin-bottom:12px;">📡</div>
+          <h1 style="font-size:20px; margin:0 0 8px;">JavaScript required</h1>
+          <p style="color:#64748b; font-size:14px; margin:0;">
+            Local WiFi Share needs JavaScript enabled to work — it's a real-time app that syncs
+            messages and files live. Please enable JavaScript in your browser settings and reload
+            the page.
+          </p>
+        </div>
       </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

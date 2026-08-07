@@ -23,6 +23,8 @@ import { SITE_URL } from '../lib/seoConfig';
 const WIFI_KEYWORDS = [
   'local wifi share',
   'local wifi text share',
+  'local file share',
+  'local text share',
   'wifi share',
   'wifi sharing',
   'wi-fi share',
@@ -34,6 +36,7 @@ const WIFI_KEYWORDS = [
   'wifi file sharing',
   'share files over wifi',
   'share text over wifi',
+  'share files locally',
   'local wifi chat',
   'local wifi sharing',
   'lan text sharing',
@@ -121,9 +124,9 @@ export default function LanRoomPage() {
       <header className="sticky top-0 z-20 backdrop-blur-xl bg-white/40 dark:bg-slate-950/40 border-b border-white/30 dark:border-slate-800/50 mt-2">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Link to="/" className="text-2xl" aria-label="WiFi Text Share home">📶</Link>
+            <Link to="/" className="text-2xl" aria-label="Local WiFi Share home">📶</Link>
             <div>
-              <h1 className="font-bold text-base sm:text-lg leading-tight">WiFi Text & File Share</h1>
+              <h1 className="font-bold text-base sm:text-lg leading-tight">Local WiFi Share</h1>
               <p className="text-[11px] text-slate-400 leading-tight hidden sm:block">
                 Real-time WiFi sharing — text &amp; files, live for everyone on this network
               </p>
